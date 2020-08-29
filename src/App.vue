@@ -1,28 +1,46 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<v-app>
+  <v-app-bar app color='indigo darken-4' dark dense>
+    <v-toolbar-title @click='handleRouteHome' class="title">Notes</v-toolbar-title>
+  </v-app-bar>
+  <v-main>
+    <v-container fluid>
+      <router-view />
+    </v-container>
+  </v-main>
+  <Dialog />
+</v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Dialog from './components/Dialog'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Dialog
+  },
+
+  data: () => ({
+  }),
+  methods: {
+    handleRouteHome () {
+      this.$router.push('/')
+    }
+  },
+  mounted () {
+    if (!this.$store.getters.notes.length) {
+      this.$store.dispatch('getNotes')
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.title {
+  cursor: pointer;
+}
+.title:hover {
+  color: #3F51B5;
 }
 </style>
