@@ -1,9 +1,13 @@
 <template>
   <v-dialog v-model="dialog.show" persistent max-width="320" class='dialog'>
     <v-card>
-      <v-card-title class="headline">
-        <p>{{dialog.text}}</p>
+      <v-card-title class="d-flex align-center">
+        <v-icon color='error'>mdi-alert</v-icon>
+        <span>Warning!</span>
       </v-card-title>
+      <v-card-text>
+        <p>{{dialog.text}}</p>
+      </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="secondary" text @click="toggleDialog(false, null)">cancel</v-btn>

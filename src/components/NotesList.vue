@@ -15,7 +15,9 @@
         solo
         v-model='search'
       ></v-text-field>
-      <v-btn text color='primary' @click='handleRouteNewNote'>New note</v-btn>
+      <v-btn icon text color='primary' @click='handleRouteNewNote' title='New note'>
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
     </v-card-title>
     <v-list
       three-line
@@ -23,8 +25,10 @@
       max-height='500'
       class='d-flex flex-column list'
       subheader
+      v-if='filterNotes(notes).length'
     >
       <v-list-item
+        three-line
         v-for="(note, i) in filterNotes(notes)"
         :key="i"
         class='d-flex align-center note'
@@ -32,7 +36,8 @@
         @click='handleRouteEditNote(note, i)'
       >
         <v-list-item-content>
-          <v-list-item-title v-text="note.text"></v-list-item-title>
+          <v-list-item-title v-text="note.title"></v-list-item-title>
+          <v-list-item-subtitle>{{note.text}}</v-list-item-subtitle>
           <v-list-item-subtitle>
             <v-chip-group multiple mandatory color='primary' :value='note.tags'>
               <v-chip v-for="tag in note.tags" :key="tag" disabled>{{tag}}</v-chip>
@@ -42,8 +47,10 @@
         <v-list-item-icon class='icon'>
           <v-btn small
             icon
-            color='error'
+            color=''
             @click.stop='deleteNote(i)'
+            title='Delete note'
+            class='error-icon'
           >
             <v-icon>mdi-delete</v-icon>
           </v-btn>
@@ -51,6 +58,8 @@
             icon
             :color='note.pinned ? "primary" : ""'
             @click.stop='togglePin(note)'
+            title='Pin note'
+            class="pin-icon"
           >
             <v-icon v-if='note.pinned'>mdi-pin-off</v-icon>
             <v-icon v-else>mdi-pin</v-icon>
@@ -58,6 +67,10 @@
         </v-list-item-icon>
       </v-list-item>
     </v-list>
+    <div v-else class="no-notes-text">
+      <v-divider></v-divider>
+      <div>No notes...</div>
+    </div>
   </v-card>
 </template>
 
@@ -147,6 +160,20 @@ export default {
 }
 .note:hover {
  border: 1px solid #BBDEFB;
+}
+.error-icon:hover {
+  color: #ff5252;
+}
+.pin-icon:hover {
+  color: #1976d2;
+}
+.no-notes-text {
+  padding: 0 16px 16px 16px;
+}
+.no-notes-text div {
+  margin-top: 15px;
+  font-size: 1.2em;
+  color: #BDBDBD;
 }
 </style>
 <style>

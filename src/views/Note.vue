@@ -5,19 +5,31 @@
     max-height='100%'
   >
     <v-card-title>
-      <p>{{noteToEdit ? 'Editting note' : 'New note'}}</p>
+      <v-text-field
+        clearable
+        clear-icon='mdi-close'
+        flat
+        solo
+        hide-details
+        label="Title"
+        v-model='note.title'
+      ></v-text-field>
     </v-card-title>
     <v-divider></v-divider>
-      <v-card-text>
-        <v-text-field
+    <v-card-subtitle>
+      <v-textarea
+        auto-grow
+        dense
+        rows='3'
         clearable
         clear-icon='mdi-close'
         flat
         hide-details
-        label="Note name"
-        solo
+        label="Text"
         v-model='note.text'
-      ></v-text-field>
+      ></v-textarea>
+    </v-card-subtitle>
+      <v-card-text>
         <v-combobox
           v-model="note.tags"
           deletable-chips
@@ -26,8 +38,8 @@
           label="Tags"
           dense
           flat
-          solo
           multiple
+          height='100px'
         >
         </v-combobox>
       </v-card-text>
@@ -44,6 +56,7 @@ export default {
   data: () => {
     return {
       newNote: {
+        title: '',
         text: '',
         pinned: false,
         tags: []
