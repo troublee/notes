@@ -82,7 +82,7 @@ export default {
       }, 300)
     },
     filterNotes (notes) {
-      if (this.search) {
+      if (this.search && this.notes) {
         const filteredNotes = this.notes.filter(note => {
           const text = note.text.toLowerCase()
           const tags = note.tags.map(el => el.toLowerCase())

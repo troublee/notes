@@ -29,7 +29,7 @@ export default {
     }
   },
   mounted () {
-    if (!this.$store.getters.notes.length) {
+    if (!this.$store.getters.notes.length && localStorage.getItem('notes')) {
       this.$store.dispatch('getNotes')
     }
   }
