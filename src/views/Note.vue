@@ -65,7 +65,7 @@ export default {
   },
   computed: {
     note () {
-      return this.noteToEdit ? this.noteToEdit : this.newNote
+      return this.noteToEdit ? Object.assign({}, this.noteToEdit) : this.newNote
     }
   },
   methods: {
@@ -78,7 +78,7 @@ export default {
       this.$router.push('/')
     },
     toggleDialog () {
-      this.$store.dispatch('toggleDialog', { show: true, text: 'Are you sure you want to discard changes?' })
+      this.$store.dispatch('toggleDialog', { show: true, text: 'Are you sure you want to discard changes?', action: null })
     }
   }
 }
